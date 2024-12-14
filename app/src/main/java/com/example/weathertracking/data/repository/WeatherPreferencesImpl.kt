@@ -1,21 +1,35 @@
 package com.example.weathertracking.data.repository
 
-import android.content.SharedPreferences
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import com.example.weathertracking.domain.repository.WeatherPreferences
+import com.example.weathertracking.utils.Constants
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
 
 class WeatherPreferencesImpl(
-    private val sharedPreferences: SharedPreferences
-) : WeatherPreferences {
-
-    companion object {
-        private const val ACTIVE_WEATHER_ID = "active_weather_id"
+    private val context:Context
+): WeatherPreferences {
+    val Context.datastore:DataStore<Preferences> by preferencesDataStore(name = Constants.APP_PREFERENCES)
+    override suspend fun saveActiveWeatherId(id: Int) {
+        context.datastore.edit { preferences ->
+            preferences[Keys.COUNTRY_ID] = id
+        }
     }
 
-    override fun saveActiveWeatherId(id: Int) {
-        sharedPreferences.edit().putInt(ACTIVE_WEATHER_ID, id).apply()
+    override suspend fun getActiveWeatherId(): Flow<Int> {
+        return context.datastore.data.map { preferences ->
+            preferences[Keys.COUNTRY_ID] ?: 0
+        }
     }
 
-    override fun getActiveWeatherId(): Int {
-        return sharedPreferences.getInt(ACTIVE_WEATHER_ID, -1) // -1 as default value if not set
+    object Keys{
+        val COUNTRY_ID = intPreferencesKey("country_id")
     }
+
 }
