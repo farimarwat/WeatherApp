@@ -1,5 +1,7 @@
 package com.example.weathertracking.domain.model
 
+import com.example.weathertracking.data.local.model.WeatherEntity
+
 data class WeatherModel(
     val id: Long = 0, // Optional id, may not be present initially.
     val cityName: String,
