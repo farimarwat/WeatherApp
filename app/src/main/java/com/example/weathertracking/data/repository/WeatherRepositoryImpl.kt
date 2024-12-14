@@ -28,7 +28,7 @@ class WeatherRepositoryImpl @Inject constructor(
         val cities = weatherService.searchLocation(key = Constants.API_KEY, query = query)
         val weatherModels = cities.map { searchResponse ->
             val weatherResponse = weatherService.getCurrent(key = Constants.API_KEY, query = searchResponse.name)
-            weatherResponse.toWeatherModel()
+            weatherResponse.toWeatherModel().copy(id = searchResponse.id)
         }
         emit(weatherModels)
     }

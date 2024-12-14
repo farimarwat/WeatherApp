@@ -13,7 +13,8 @@ data class WeatherEntity(
     val weatherCondition: String,
     val iconUrl: String,
     val humidity: Int,
-    val uvIndex: Double
+    val uvIndex: Double,
+    val feelslike_c:Double
 ) {
     fun toWeatherModel(): WeatherModel {
         return WeatherModel(
@@ -23,7 +24,8 @@ data class WeatherEntity(
             weatherCondition = this.weatherCondition,
             iconUrl = this.iconUrl,
             humidity = this.humidity,
-            uvIndex = this.uvIndex
+            uvIndex = this.uvIndex,
+            feelslike_c = this.feelslike_c
         )
     }
 }

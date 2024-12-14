@@ -67,8 +67,8 @@ class HomeScreenViewModel @Inject constructor(
     fun saveWeather(weatherModel: WeatherModel){
         jobSaveWeatherUseCase?.cancel()
         jobSaveWeatherUseCase = viewModelScope.launch(Dispatchers.IO) {
-            saveActiveWeatherIdUseCase(weatherModel.id)
             saveWeatherUseCase(weatherModel.toEntity())
+            saveActiveWeatherIdUseCase(weatherModel.id)
         }
     }
     fun clearQuariedItems(){

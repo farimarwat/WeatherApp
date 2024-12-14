@@ -47,7 +47,7 @@ fun WeatherItem(weatherModel: WeatherModel,onClick:(WeatherModel)->Unit = {}){
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
-                CentigradeText(weatherModel.temperatureCelsius.toInt())
+                CentigradeText(weatherModel.temperatureCelsius.toInt(),MaterialTheme.typography.titleLarge)
             }
             AsyncImage(
                 modifier = Modifier

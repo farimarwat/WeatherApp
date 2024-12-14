@@ -9,7 +9,8 @@ data class WeatherModel(
     val weatherCondition: String,
     val iconUrl: String,
     val humidity: Int,
-    val uvIndex: Double
+    val uvIndex: Double,
+    val feelslike_c:Double
 ) {
     fun toEntity(): WeatherEntity {
         return WeatherEntity(
@@ -19,7 +20,8 @@ data class WeatherModel(
             weatherCondition = this.weatherCondition,
             iconUrl = this.iconUrl,
             humidity = this.humidity,
-            uvIndex = this.uvIndex
+            uvIndex = this.uvIndex,
+            feelslike_c = this.feelslike_c
         )
     }
     fun getCompleteUrlForIcon():String{

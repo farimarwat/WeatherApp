@@ -11,7 +11,8 @@ data class WeatherResponse(
             weatherCondition = current.condition.text,
             iconUrl = current.condition.icon,
             humidity = current.humidity,
-            uvIndex = current.uv
+            uvIndex = current.uv,
+            feelslike_c = current.feelslike_c
         )
     }
 }

@@ -11,7 +11,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CentigradeText(temperature: Int) {
+fun CentigradeText(temperature: Int, textStyle: TextStyle) {
     Text(
         buildAnnotatedString {
             append("$temperature")
@@ -24,7 +24,7 @@ fun CentigradeText(temperature: Int) {
                 append("°")
             }
         },
-        style = MaterialTheme.typography.titleLarge
+        style = textStyle
     )
 }
 

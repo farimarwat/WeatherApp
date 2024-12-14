@@ -25,11 +25,8 @@ class MainActivity : ComponentActivity() {
         val homeScreenViewModel:HomeScreenViewModel by viewModels()
         enableEdgeToEdge()
         setContent {
-            WeatherTrackingTheme {
+            WeatherTrackingTheme(darkTheme = false) {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LaunchedEffect(Unit) {
-
-                    }
                     val modifier = Modifier.padding(innerPadding)
                    App(modifier,homeScreenViewModel)
                 }
