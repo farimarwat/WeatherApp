@@ -16,9 +16,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,6 +45,7 @@ class HomeScreenViewModel @Inject constructor(
         jobQueryWeather?.cancel()
         jobQueryWeather = viewModelScope.launch (Dispatchers.IO){
             val list = queryWeatherUseCase(query)
+            Timber.i("IconUrl: ${list.single().get(0).iconUrl}")
             list.collect{list ->
                _listWeather.value = list.toSet()
             }
@@ -54,6 +56,7 @@ class HomeScreenViewModel @Inject constructor(
         jobGetActiveWeather?.cancel()
         jobGetActiveWeather = viewModelScope.launch(Dispatchers.IO) {
             getActiveWeatherIdUseCase().collect{id ->
+                Timber.i("Active Weather: ${id}")
                 if(id > 0){
                     mActiveWeather = getWeatherUseCase(id)
                 }
@@ -64,8 +67,12 @@ class HomeScreenViewModel @Inject constructor(
     fun saveWeather(weatherModel: WeatherModel){
         jobSaveWeatherUseCase?.cancel()
         jobSaveWeatherUseCase = viewModelScope.launch(Dispatchers.IO) {
+            saveActiveWeatherIdUseCase(weatherModel.id)
             saveWeatherUseCase(weatherModel.toEntity())
         }
+    }
+    fun clearQuariedItems(){
+        _listWeather.value = mutableSetOf()
     }
 
     override fun onCleared() {

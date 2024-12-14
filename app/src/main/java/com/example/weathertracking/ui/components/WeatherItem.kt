@@ -8,7 +8,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,16 +23,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.weathertracking.domain.model.WeatherModel
+import timber.log.Timber
 
 @Composable
 fun WeatherItem(weatherModel: WeatherModel,onClick:(WeatherModel)->Unit = {}){
-    Card {
+    Card (
+        modifier = Modifier.padding(bottom = 8.dp),
+        elevation = CardDefaults.elevatedCardElevation(2.dp)
+    ){
         Row (
             modifier = Modifier
                 .clickable { onClick(weatherModel) }
-                .padding(horizontal = 8.dp, vertical = 8.dp)
                 .fillMaxWidth()
-                .height(200.dp),
+                .padding(horizontal = 8.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ){
@@ -41,10 +49,13 @@ fun WeatherItem(weatherModel: WeatherModel,onClick:(WeatherModel)->Unit = {}){
                 )
                 CentigradeText(weatherModel.temperatureCelsius.toInt())
             }
+            AsyncImage(
+                modifier = Modifier
+                    .size(100.dp),
+                model = weatherModel.getCompleteUrlForIcon(),
+                contentDescription = weatherModel.cityName
+            )
         }
-        AsyncImage(
-            model = weatherModel.iconUrl,
-            contentDescription = weatherModel.cityName
-        )
+
     }
 }

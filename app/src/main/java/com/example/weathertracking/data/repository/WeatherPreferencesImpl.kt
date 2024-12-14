@@ -10,6 +10,7 @@ import com.example.weathertracking.domain.repository.WeatherPreferences
 import com.example.weathertracking.utils.Constants
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 
 
 class WeatherPreferencesImpl(
@@ -18,6 +19,7 @@ class WeatherPreferencesImpl(
     val Context.datastore:DataStore<Preferences> by preferencesDataStore(name = Constants.APP_PREFERENCES)
     override suspend fun saveActiveWeatherId(id: Int) {
         context.datastore.edit { preferences ->
+            Timber.i("Active id: ${id}")
             preferences[Keys.COUNTRY_ID] = id
         }
     }

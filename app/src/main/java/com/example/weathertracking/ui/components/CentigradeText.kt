@@ -23,7 +23,6 @@ fun CentigradeText(temperature: Int) {
             ) {
                 append("°")
             }
-            append("C")
         },
         style = MaterialTheme.typography.titleLarge
     )

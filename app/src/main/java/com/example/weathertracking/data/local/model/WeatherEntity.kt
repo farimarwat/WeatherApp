@@ -7,7 +7,7 @@ import com.example.weathertracking.domain.model.WeatherModel
 @Entity(tableName = "weather")
 data class WeatherEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    val id: Int = 0,
     val cityName: String,
     val temperatureCelsius: Double,
     val weatherCondition: String,

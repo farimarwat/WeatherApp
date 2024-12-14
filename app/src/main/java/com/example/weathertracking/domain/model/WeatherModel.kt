@@ -3,7 +3,7 @@ package com.example.weathertracking.domain.model
 import com.example.weathertracking.data.local.model.WeatherEntity
 
 data class WeatherModel(
-    val id: Long = 0, // Optional id, may not be present initially.
+    val id: Int = 0,
     val cityName: String,
     val temperatureCelsius: Double,
     val weatherCondition: String,
@@ -21,5 +21,8 @@ data class WeatherModel(
             humidity = this.humidity,
             uvIndex = this.uvIndex
         )
+    }
+    fun getCompleteUrlForIcon():String{
+        return "https:"+iconUrl
     }
 }
