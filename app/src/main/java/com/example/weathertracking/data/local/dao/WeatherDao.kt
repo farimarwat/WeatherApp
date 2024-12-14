@@ -14,5 +14,5 @@ interface WeatherDao {
     fun insertWeather(weatherEntity: WeatherEntity)
 
     @Query("SELECT * FROM weather WHERE id = :id")
-    fun getWeatherByName(id:Int):Flow<WeatherEntity>
+    fun getWeatherById(id:Int):WeatherEntity
 }
