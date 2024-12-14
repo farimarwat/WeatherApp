@@ -1,5 +1,6 @@
 package com.example.weathertracking.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.example.weathertracking.data.local.AppDatabase
@@ -13,11 +14,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DatabaseModule {
+class DatabaseModule{
 
     @Singleton
     @Provides
-    fun providesAppDatabase(context: Context):AppDatabase{
+    fun providesAppDatabase(context: Application):AppDatabase{
         return Room.databaseBuilder(
             context = context,
             klass = AppDatabase::class.java,

@@ -1,5 +1,6 @@
 package com.example.weathertracking.di
 
+import android.app.Application
 import android.content.Context
 import com.example.weathertracking.data.local.dao.WeatherDao
 import com.example.weathertracking.data.remote.WeatherService
@@ -18,7 +19,7 @@ import javax.inject.Singleton
 class AppModule {
     @Singleton
     @Provides
-    fun providePreferences(context:Context):WeatherPreferences{
+    fun providePreferences(context:Application):WeatherPreferences{
         return WeatherPreferencesImpl(context)
     }
 
