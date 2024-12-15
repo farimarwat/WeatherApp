@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -54,7 +55,7 @@ fun HomeScreen(modifier:Modifier,homeScreenViewModel: HomeScreenViewModel){
         Column (
             modifier = Modifier.fillMaxSize()
         ){
-
+            val keyboardController = LocalSoftwareKeyboardController.current
             //Search bar
             TextField(
                 modifier = Modifier
@@ -72,6 +73,7 @@ fun HomeScreen(modifier:Modifier,homeScreenViewModel: HomeScreenViewModel){
                 keyboardActions = KeyboardActions (
                     onSearch = {
                         homeScreenViewModel.queryWeather(query)
+                        keyboardController?.hide()
                     }
                 ),
                 trailingIcon = {
@@ -92,15 +94,16 @@ fun HomeScreen(modifier:Modifier,homeScreenViewModel: HomeScreenViewModel){
                 modifier = Modifier
                     .fillMaxSize()
             ){
+
+                CurrentWeatherStatus(homeScreenViewModel.mActiveWeather)
                 //List
                 if(listWeather.isNotEmpty()){
                     WeatherList(listWeather){
                         homeScreenViewModel.saveWeather(it)
                         homeScreenViewModel.clearQuariedItems()
+                        keyboardController?.hide()
                     }
                 }
-
-                CurrentWeatherStatus(homeScreenViewModel.mActiveWeather)
             }
         }
     }

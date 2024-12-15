@@ -4,4 +4,5 @@
     <string name="search">Search weather</string>
     <string name="no_city_selected">No City Selected</string>
     <string name="please_search">Please Search For A City</string>
+    <string name="send">Send</string>
 </resources>

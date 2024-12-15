@@ -19,7 +19,8 @@ import com.example.weathertracking.domain.model.WeatherModel
 @Composable
 fun CurrentWeatherStatus(weatherModel: WeatherModel?){
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ){
         if(weatherModel == null){

@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface WeatherRepository {
     suspend fun fetchWeather(id:Int):WeatherModel
     suspend fun saveWeather(weatherEntity: WeatherEntity)
-    suspend fun queryWeather(query:String):Flow<List<WeatherModel>>
+    suspend fun queryWeather(query:String):Flow<WeatherModel>
 }

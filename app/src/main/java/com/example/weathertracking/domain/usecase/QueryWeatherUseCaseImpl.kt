@@ -8,7 +8,7 @@ import javax.inject.Inject
 class QueryWeatherUseCaseImpl @Inject constructor (
     private val repository: WeatherRepository
 ):QueryWeatherUseCase {
-    override suspend fun invoke(query: String): Flow<List<WeatherModel>> {
+    override suspend fun invoke(query: String): Flow<WeatherModel> {
         return repository.queryWeather(query)
     }
 }

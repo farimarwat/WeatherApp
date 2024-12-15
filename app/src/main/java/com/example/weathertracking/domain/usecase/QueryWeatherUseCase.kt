@@ -4,5 +4,5 @@ import com.example.weathertracking.domain.model.WeatherModel
 import kotlinx.coroutines.flow.Flow
 
 interface QueryWeatherUseCase {
-    operator suspend fun invoke(query:String):Flow<List<WeatherModel>>
+    operator suspend fun invoke(query:String):Flow<WeatherModel>
 }

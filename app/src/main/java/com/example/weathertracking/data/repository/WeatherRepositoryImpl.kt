@@ -24,13 +24,13 @@ class WeatherRepositoryImpl @Inject constructor(
         weatherDao.insertWeather(weatherEntity)
     }
 
-    override suspend fun queryWeather(query: String): Flow<List<WeatherModel>> = flow {
+    override suspend fun queryWeather(query: String): Flow<WeatherModel> = flow {
         val cities = weatherService.searchLocation(key = Constants.API_KEY, query = query)
-        val weatherModels = cities.map { searchResponse ->
+        cities.map { searchResponse ->
             val weatherResponse = weatherService.getCurrent(key = Constants.API_KEY, query = searchResponse.name)
-            weatherResponse.toWeatherModel().copy(id = searchResponse.id)
+           emit( weatherResponse.toWeatherModel().copy(id = searchResponse.id))
         }
-        emit(weatherModels)
+
     }
 
 

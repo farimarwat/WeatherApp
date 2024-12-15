@@ -36,21 +36,24 @@ class HomeScreenViewModel @Inject constructor(
     private var jobGetActiveWeather:Job? = null
     private var jobSaveWeatherUseCase:Job? = null
 
-    private var _listWeather:MutableStateFlow<Set<WeatherModel>> = MutableStateFlow(mutableSetOf())
+    private var _listWeather:MutableStateFlow<MutableSet<WeatherModel>> = MutableStateFlow(mutableSetOf())
     val listWeather = _listWeather.asStateFlow()
 
     var mActiveWeather by mutableStateOf<WeatherModel?>(null)
 
-    fun queryWeather(query:String){
+    fun queryWeather(query: String) {
         jobQueryWeather?.cancel()
-        jobQueryWeather = viewModelScope.launch (Dispatchers.IO){
-            val list = queryWeatherUseCase(query)
-            Timber.i("IconUrl: ${list.single().get(0).iconUrl}")
-            list.collect{list ->
-               _listWeather.value = list.toSet()
+        _listWeather.value = mutableSetOf()
+        jobQueryWeather = viewModelScope.launch(Dispatchers.IO) {
+            queryWeatherUseCase(query).collect { weatherModel ->
+                val updatedSet = _listWeather.value.toMutableSet() // Create a new mutable copy
+                updatedSet.add(weatherModel) // Add the new item
+                _listWeather.value = updatedSet // Assign the new instance
+                Timber.i(_listWeather.value.toString())
             }
         }
     }
+
 
     fun getActiveWeather(){
         jobGetActiveWeather?.cancel()
